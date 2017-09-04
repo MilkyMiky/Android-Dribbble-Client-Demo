@@ -1,4 +1,4 @@
-package com.miky.dev.dribbbleapp.ui;
+package com.miky.dev.dribbbleapp.ui.shots;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
