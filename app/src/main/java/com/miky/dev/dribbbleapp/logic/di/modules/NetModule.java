@@ -1,12 +1,13 @@
 package com.miky.dev.dribbbleapp.logic.di.modules;
 
 
-
 import com.google.gson.GsonBuilder;
 import com.miky.dev.dribbbleapp.data.retrofit.DribbbleAPI;
+import com.miky.dev.dribbbleapp.logic.di.ShotRepository;
 
 import javax.inject.Singleton;
 
+import dagger.Module;
 import dagger.Provides;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -16,13 +17,12 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+@Module
 public class NetModule {
 
-    private static final String HEAD_PARAM_AUTH = "Authorization";
-    private static final String HEAD_PARAM_AUTH_VALUE = "Bearer ";
-    private static final String HEAD_PARAM_CONTENT_TYPE = "Content-Type";
-    private static final String HEAD_PARAM_CONTENT_TYPE_VALUE = "application/json";
-    private final static String URL = "";
+    private final static String OAUTH_TOKEN = "Bearer 9cdc9a5a6ad0a7264933c735b9175f7f9e6c9392be25a708f4a5f327c0039432";
+    private final static String HEAD_PARAM_AUTH = "Authorization";
+    private final static String URL = "https://api.dribbble.com/v1/";
 
     @Singleton
     @Provides
@@ -39,7 +39,7 @@ public class NetModule {
             Request original = chain.request();
             Request.Builder requestBuilder = original.newBuilder();
 
-//            requestBuilder.header(HEAD_PARAM_CONTENT_TYPE, HEAD_PARAM_CONTENT_TYPE_VALUE);
+            requestBuilder.header(HEAD_PARAM_AUTH, OAUTH_TOKEN);
             requestBuilder.method(original.method(), original.body());
 
             HttpUrl.parse(URL).host();
@@ -76,5 +76,11 @@ public class NetModule {
                 .client(client)
                 .build();
         return retrofit.create(DribbbleAPI.class);
+    }
+
+    @Singleton
+    @Provides
+    ShotRepository provideShotsepository(DribbbleAPI dribbbleAPI) {
+        return new ShotRepository(dribbbleAPI);
     }
 }
