@@ -2,9 +2,6 @@ package com.miky.dev.dribbbleapp.ui.shots;
 
 
 import android.content.Context;
-import android.util.Log;
-
-import com.miky.dev.dribbbleapp.data.db.entity.Shot;
 import com.miky.dev.dribbbleapp.logic.di.ShotRepository;
 import com.miky.dev.dribbbleapp.ui.App;
 
@@ -28,13 +25,10 @@ public class ShotsPresenter {
     }
 
     void getData(boolean update) {
-
         view.showProgress(true);
         repository.getShots(update).subscribe(shots -> {
-            for(Shot shot: shots) {
-                Log.d("log", "shot " + shot.getTitle() + " " + shot.getImages().getHidpi());
-            }
             view.showProgress(false);
+            view.showData(shots);
         }, throwable -> {
             view.showMessage(throwable.getMessage());
             view.showProgress(false);

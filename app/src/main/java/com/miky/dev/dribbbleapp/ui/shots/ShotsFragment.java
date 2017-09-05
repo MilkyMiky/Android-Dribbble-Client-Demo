@@ -7,6 +7,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -14,13 +16,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.miky.dev.dribbbleapp.R;
+import com.miky.dev.dribbbleapp.data.db.entity.Shot;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ShotsFragment extends Fragment implements IShotsView {
-    private ShotsPresenter presenter;
-
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.swipe)
@@ -29,11 +32,14 @@ public class ShotsFragment extends Fragment implements IShotsView {
     RecyclerView recyclerView;
 
     private View view;
+    private ShotsPresenter presenter;
+    private ShotAdapter adapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new ShotsPresenter();
+        adapter = new ShotAdapter();
     }
 
     @Nullable
@@ -52,13 +58,19 @@ public class ShotsFragment extends Fragment implements IShotsView {
         swipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
         swipeRefreshLayout.setOnRefreshListener(() -> presenter.getData(true));
 
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), new LinearLayoutManager(getActivity()).getOrientation());
+        recyclerView.addItemDecoration(dividerItemDecoration);
+        recyclerView.setAdapter(adapter);
+
         presenter.setView(this);
         presenter.getData(true);
     }
 
     @Override
-    public void showData() {
-
+    public void showData(List<Shot> shotList) {
+        adapter.setShotList(shotList);
+        adapter.notifyDataSetChanged();
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.miky.dev.dribbbleapp.data.db.entity;
 
 
-import java.util.List;
 
 public class Shot {
 
