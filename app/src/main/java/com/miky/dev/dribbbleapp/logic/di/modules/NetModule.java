@@ -1,7 +1,6 @@
 package com.miky.dev.dribbbleapp.logic.di.modules;
 
 
-import com.google.gson.GsonBuilder;
 import com.miky.dev.dribbbleapp.data.retrofit.DribbbleAPI;
 import com.miky.dev.dribbbleapp.logic.di.ShotRepository;
 
@@ -26,39 +25,27 @@ public class NetModule {
 
     @Singleton
     @Provides
-    GsonConverterFactory provideGsonConverterFactory() {
-        return GsonConverterFactory.create(new GsonBuilder().create());
-    }
-
-    @Singleton
-    @Provides
     OkHttpClient provideOkHttpClient() {
-
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.addInterceptor(chain -> {
             Request original = chain.request();
             Request.Builder requestBuilder = original.newBuilder();
-
             requestBuilder.header(HEAD_PARAM_AUTH, OAUTH_TOKEN);
             requestBuilder.method(original.method(), original.body());
-
             HttpUrl.parse(URL).host();
             HttpUrl newUrl = original.url().newBuilder()
                     .scheme(HttpUrl.parse(URL).scheme())
                     .host(HttpUrl.parse(URL).host())
                     .port(HttpUrl.parse(URL).port())
                     .build();
-
             Request request = requestBuilder.url(newUrl).build();
             return chain.proceed(request);
         });
-
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         httpClient.addInterceptor(logging);
         return httpClient.build();
     }
-
 
     @Singleton
     @Provides
@@ -80,7 +67,7 @@ public class NetModule {
 
     @Singleton
     @Provides
-    ShotRepository provideShotsepository(DribbbleAPI dribbbleAPI) {
+    ShotRepository provideShotsRepository(DribbbleAPI dribbbleAPI) {
         return new ShotRepository(dribbbleAPI);
     }
 }

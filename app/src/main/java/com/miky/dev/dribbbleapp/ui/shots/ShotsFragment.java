@@ -3,6 +3,7 @@ package com.miky.dev.dribbbleapp.ui.shots;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -27,6 +28,8 @@ public class ShotsFragment extends Fragment implements IShotsView {
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
 
+    private View view;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +39,7 @@ public class ShotsFragment extends Fragment implements IShotsView {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_shots, container, false);
+        view = inflater.inflate(R.layout.fragment_shots, container, false);
         ButterKnife.bind(this, view);
         return view;
     }
@@ -61,5 +64,10 @@ public class ShotsFragment extends Fragment implements IShotsView {
     @Override
     public void showProgress(boolean show) {
         if (swipeRefreshLayout != null) swipeRefreshLayout.setRefreshing(show);
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show();
     }
 }

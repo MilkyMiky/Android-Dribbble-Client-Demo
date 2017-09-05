@@ -6,4 +6,6 @@ interface IShotsView {
     void showData();
 
     void showProgress(boolean show);
+
+    void showMessage(String message);
 }
