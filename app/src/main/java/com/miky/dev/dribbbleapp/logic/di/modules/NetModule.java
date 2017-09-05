@@ -42,7 +42,7 @@ public class NetModule {
             return chain.proceed(request);
         });
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        logging.setLevel(HttpLoggingInterceptor.Level.NONE);
         httpClient.addInterceptor(logging);
         return httpClient.build();
     }

@@ -42,11 +42,17 @@ class ShotAdapter extends RecyclerView.Adapter<ShotAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         Shot shot = shotList.get(position);
         holder.title.setText(shot.getTitle());
+        holder.description.setText(shot.getDescription());
+        String url;
         if (shot.getImages().getHidpi().isEmpty() || shot.getImages().getHidpi() == null) {
-            Picasso.with(context).load(shot.getImages().getTeaser()).into(holder.image);
+            url = shot.getImages().getTeaser();
         } else {
-            Picasso.with(context).load(shot.getImages().getHidpi()).into(holder.image);
+            url = shot.getImages().getHidpi();
         }
+        Picasso
+                .with(context)
+                .load(url)
+                .into(holder.image);
     }
 
     @Override
@@ -57,7 +63,8 @@ class ShotAdapter extends RecyclerView.Adapter<ShotAdapter.ViewHolder> {
     class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.title)
         TextView title;
-
+        @BindView(R.id.description)
+        TextView description;
         @BindView(R.id.image)
         ImageView image;
 
