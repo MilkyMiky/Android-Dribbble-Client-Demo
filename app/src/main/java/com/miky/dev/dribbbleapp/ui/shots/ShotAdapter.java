@@ -1,14 +1,17 @@
 package com.miky.dev.dribbbleapp.ui.shots;
 
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.miky.dev.dribbbleapp.R;
 import com.miky.dev.dribbbleapp.data.db.entity.Shot;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +22,11 @@ import butterknife.ButterKnife;
 class ShotAdapter extends RecyclerView.Adapter<ShotAdapter.ViewHolder> {
 
     private List<Shot> shotList = new ArrayList<>();
+    private Context context;
+
+    void setContext(Context context) {
+        this.context = context;
+    }
 
     void setShotList(List<Shot> shotList) {
         this.shotList = shotList;
@@ -34,6 +42,11 @@ class ShotAdapter extends RecyclerView.Adapter<ShotAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         Shot shot = shotList.get(position);
         holder.title.setText(shot.getTitle());
+        if (shot.getImages().getHidpi().isEmpty() || shot.getImages().getHidpi() == null) {
+            Picasso.with(context).load(shot.getImages().getTeaser()).into(holder.image);
+        } else {
+            Picasso.with(context).load(shot.getImages().getHidpi()).into(holder.image);
+        }
     }
 
     @Override
@@ -41,18 +54,16 @@ class ShotAdapter extends RecyclerView.Adapter<ShotAdapter.ViewHolder> {
         return shotList.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.title)
         TextView title;
+
+        @BindView(R.id.image)
+        ImageView image;
 
         ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View v) {
         }
     }
 }

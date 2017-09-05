@@ -40,6 +40,7 @@ public class ShotsFragment extends Fragment implements IShotsView {
         super.onCreate(savedInstanceState);
         presenter = new ShotsPresenter();
         adapter = new ShotAdapter();
+
     }
 
     @Nullable
@@ -58,6 +59,7 @@ public class ShotsFragment extends Fragment implements IShotsView {
         swipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
         swipeRefreshLayout.setOnRefreshListener(() -> presenter.getData(true));
 
+        adapter.setContext(getActivity());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), new LinearLayoutManager(getActivity()).getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
