@@ -34,7 +34,7 @@ public class ShotRepository {
                     }
 
                     List<Shot> shots = dataBaseHelper.getShotDAO().readAll();
-                    if(shots == null) {
+                    if(shots.size() == 0) {
                         return loadFromSrv();
                     }
 
