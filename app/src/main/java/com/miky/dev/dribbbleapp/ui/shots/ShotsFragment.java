@@ -82,4 +82,5 @@ public class ShotsFragment extends Fragment implements IShotsView {
     public void showMessage(String message) {
         Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show();
     }
+
 }
