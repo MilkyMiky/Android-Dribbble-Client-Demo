@@ -64,7 +64,7 @@ public class ShotsFragment extends Fragment implements IShotsView {
         recyclerView.setAdapter(adapter);
 
         presenter.setView(this);
-        presenter.getData(true);
+        presenter.getData(false);
     }
 
     @Override

@@ -2,6 +2,8 @@ package com.miky.dev.dribbbleapp.logic.di.modules;
 
 
 import android.content.Context;
+
+import com.miky.dev.dribbbleapp.data.db.DataBaseHelper;
 import com.miky.dev.dribbbleapp.ui.App;
 
 import javax.inject.Singleton;
@@ -21,4 +23,11 @@ public class AppModule {
     Context provideContext(App app) {
         return app.getApplicationContext();
     }
+
+    @Provides
+    @Singleton
+    DataBaseHelper provideDatabaseHelper(Context context) {
+        return new DataBaseHelper(context);
+    }
+
 }
