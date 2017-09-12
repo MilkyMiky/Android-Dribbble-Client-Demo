@@ -10,6 +10,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +61,7 @@ public class ShotsFragment extends Fragment implements IShotsView {
         swipeRefreshLayout.setOnRefreshListener(() -> presenter.getData(true));
 
         adapter.setContext(getActivity());
+        adapter.setItemHeight(getScreenHeight());
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
@@ -81,6 +84,13 @@ public class ShotsFragment extends Fragment implements IShotsView {
     @Override
     public void showMessage(String message) {
         Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show();
+    }
+
+    private int getScreenHeight() {
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        display.getMetrics(outMetrics);
+        return outMetrics.heightPixels / 2;
     }
 
 }
