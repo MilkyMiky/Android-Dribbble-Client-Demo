@@ -46,7 +46,7 @@ class ShotAdapter extends RecyclerView.Adapter<ShotAdapter.ViewHolder> {
         holder.title.setText(shot.getTitle());
         holder.description.setText(shot.getDescription());
         String url;
-        if (shot.getImages().getHidpi().isEmpty() || shot.getImages().getHidpi() == null) {
+        if (shot.getImages().getHidpi() == null) {
             url = shot.getImages().getTeaser();
         } else {
             url = shot.getImages().getHidpi();

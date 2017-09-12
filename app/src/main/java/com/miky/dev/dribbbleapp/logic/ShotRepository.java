@@ -1,11 +1,10 @@
-package com.miky.dev.dribbbleapp.logic.di;
+package com.miky.dev.dribbbleapp.logic;
 
 
 
 import android.content.Context;
 import android.util.Log;
 
-import com.miky.dev.dribbbleapp.data.db.DataBaseHelper;
 import com.miky.dev.dribbbleapp.data.db.entity.Shot;
 import com.miky.dev.dribbbleapp.data.retrofit.DribbbleAPI;
 
@@ -17,8 +16,10 @@ import rx.schedulers.Schedulers;
 
 public class ShotRepository {
 
+
     private DribbbleAPI dribbbleAPI;
     private DataBaseHelper dataBaseHelper;
+    private final static int SHOTS_NUM = 50;
 
     public ShotRepository(Context context, DribbbleAPI dribbbleAPI, DataBaseHelper dataBaseHelper) {
         this.dribbbleAPI = dribbbleAPI;
@@ -49,7 +50,7 @@ public class ShotRepository {
 
     private Observable<List<Shot>> loadFromSrv() {
         Log.i("log", "loading from srv...");
-        return dribbbleAPI.getShots()
+        return dribbbleAPI.getShots(SHOTS_NUM)
                 .map(shots -> {
                     dataBaseHelper.getShotDAO().save(shots);
                     dataBaseHelper.getImageDAO().save(shots);

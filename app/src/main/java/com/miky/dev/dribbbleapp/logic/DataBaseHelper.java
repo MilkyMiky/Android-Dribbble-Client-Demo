@@ -1,4 +1,4 @@
-package com.miky.dev.dribbbleapp.data.db;
+package com.miky.dev.dribbbleapp.logic;
 
 
 import android.content.Context;

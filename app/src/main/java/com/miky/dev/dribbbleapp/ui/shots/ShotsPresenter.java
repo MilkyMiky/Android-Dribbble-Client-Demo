@@ -2,7 +2,7 @@ package com.miky.dev.dribbbleapp.ui.shots;
 
 
 import android.content.Context;
-import com.miky.dev.dribbbleapp.logic.di.ShotRepository;
+import com.miky.dev.dribbbleapp.logic.ShotRepository;
 import com.miky.dev.dribbbleapp.ui.App;
 
 import javax.inject.Inject;

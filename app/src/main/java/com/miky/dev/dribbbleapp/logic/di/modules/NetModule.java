@@ -3,9 +3,9 @@ package com.miky.dev.dribbbleapp.logic.di.modules;
 
 import android.content.Context;
 
-import com.miky.dev.dribbbleapp.data.db.DataBaseHelper;
+import com.miky.dev.dribbbleapp.logic.DataBaseHelper;
 import com.miky.dev.dribbbleapp.data.retrofit.DribbbleAPI;
-import com.miky.dev.dribbbleapp.logic.di.ShotRepository;
+import com.miky.dev.dribbbleapp.logic.ShotRepository;
 
 import javax.inject.Singleton;
 
