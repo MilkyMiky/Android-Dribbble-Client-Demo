@@ -2,6 +2,7 @@ package com.miky.dev.dribbbleapp.ui.shots;
 
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,6 +56,7 @@ class ShotAdapter extends RecyclerView.Adapter<ShotAdapter.ViewHolder> {
         Picasso.with(context)
                 .load(url)
                 .networkPolicy(NetworkPolicy.OFFLINE)
+                .placeholder(ContextCompat.getDrawable(context, R.drawable.vector_image))
                 .into(holder.image, new Callback() {
                     @Override
                     public void onSuccess() {
@@ -64,6 +66,7 @@ class ShotAdapter extends RecyclerView.Adapter<ShotAdapter.ViewHolder> {
                     public void onError() {
                         Picasso.with(context)
                                 .load(url)
+                                .placeholder(ContextCompat.getDrawable(context, R.drawable.vector_image))
                                 .into(holder.image);
                     }
                 });

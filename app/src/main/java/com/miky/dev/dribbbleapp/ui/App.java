@@ -6,8 +6,6 @@ import android.support.v7.app.AppCompatDelegate;
 
 import com.miky.dev.dribbbleapp.logic.di.components.AppComponent;
 import com.miky.dev.dribbbleapp.logic.di.components.DaggerAppComponent;
-import com.squareup.picasso.OkHttpDownloader;
-import com.squareup.picasso.Picasso;
 
 public class App extends Application {
     private static App instance;
