@@ -2,6 +2,7 @@ package com.miky.dev.dribbbleapp.logic.di;
 
 
 
+import android.content.Context;
 import android.util.Log;
 
 import com.miky.dev.dribbbleapp.data.db.DataBaseHelper;
@@ -19,7 +20,7 @@ public class ShotRepository {
     private DribbbleAPI dribbbleAPI;
     private DataBaseHelper dataBaseHelper;
 
-    public ShotRepository(DribbbleAPI dribbbleAPI, DataBaseHelper dataBaseHelper) {
+    public ShotRepository(Context context, DribbbleAPI dribbbleAPI, DataBaseHelper dataBaseHelper) {
         this.dribbbleAPI = dribbbleAPI;
         this.dataBaseHelper = dataBaseHelper;
     }

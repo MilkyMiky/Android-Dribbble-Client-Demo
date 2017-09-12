@@ -1,6 +1,8 @@
 package com.miky.dev.dribbbleapp.logic.di.modules;
 
 
+import android.content.Context;
+
 import com.miky.dev.dribbbleapp.data.db.DataBaseHelper;
 import com.miky.dev.dribbbleapp.data.retrofit.DribbbleAPI;
 import com.miky.dev.dribbbleapp.logic.di.ShotRepository;
@@ -68,7 +70,7 @@ public class NetModule {
 
     @Singleton
     @Provides
-    ShotRepository provideShotsRepository(DribbbleAPI dribbbleAPI, DataBaseHelper dataBaseHelper) {
-        return new ShotRepository(dribbbleAPI, dataBaseHelper);
+    ShotRepository provideShotsRepository(Context context, DribbbleAPI dribbbleAPI, DataBaseHelper dataBaseHelper) {
+        return new ShotRepository(context, dribbbleAPI, dataBaseHelper);
     }
 }

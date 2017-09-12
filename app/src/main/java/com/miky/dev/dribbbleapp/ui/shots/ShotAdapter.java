@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.miky.dev.dribbbleapp.R;
 import com.miky.dev.dribbbleapp.data.db.entity.Shot;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -49,10 +51,22 @@ class ShotAdapter extends RecyclerView.Adapter<ShotAdapter.ViewHolder> {
         } else {
             url = shot.getImages().getHidpi();
         }
-        Picasso
-                .with(context)
+
+        Picasso.with(context)
                 .load(url)
-                .into(holder.image);
+                .networkPolicy(NetworkPolicy.OFFLINE)
+                .into(holder.image, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                    }
+
+                    @Override
+                    public void onError() {
+                        Picasso.with(context)
+                                .load(url)
+                                .into(holder.image);
+                    }
+                });
     }
 
     @Override
